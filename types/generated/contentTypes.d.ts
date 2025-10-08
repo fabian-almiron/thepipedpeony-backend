@@ -487,6 +487,8 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    course: Schema.Attribute.Relation<'manyToMany', 'api::course.course'>;
+    courses: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -501,7 +503,140 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    recipes: Schema.Attribute.Relation<'manyToMany', 'api::recipe.recipe'>;
     slug: Schema.Attribute.UID<'name'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
+  collectionName: 'courses';
+  info: {
+    description: 'Video courses with chapters, equipment lists, and detailed content';
+    displayName: 'Course';
+    pluralName: 'courses';
+    singularName: 'course';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    about: Schema.Attribute.RichText;
+    author: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'The Piped Peony Team'>;
+    category: Schema.Attribute.Relation<'manyToMany', 'api::category.category'>;
+    content: Schema.Attribute.RichText;
+    courseLevel: Schema.Attribute.Enumeration<
+      ['beginner', 'intermediate', 'advanced']
+    > &
+      Schema.Attribute.DefaultTo<'beginner'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    episode: Schema.Attribute.String;
+    equipmentNeeded: Schema.Attribute.JSON;
+    excerpt: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    featuredImage: Schema.Attribute.Media<'images'>;
+    gallery: Schema.Attribute.Media<'images', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course.course'
+    > &
+      Schema.Attribute.Private;
+    permalink: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    series: Schema.Attribute.String;
+    slug: Schema.Attribute.String & Schema.Attribute.Unique;
+    tags: Schema.Attribute.JSON;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    videoChapters: Schema.Attribute.JSON;
+    videoId: Schema.Attribute.String;
+  };
+}
+
+export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
+  collectionName: 'menu_items';
+  info: {
+    description: 'Individual menu items for navigation';
+    displayName: 'Menu Item';
+    pluralName: 'menu-items';
+    singularName: 'menu-item';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    children: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-item.menu-item'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cssClass: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.String;
+    isExternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-item.menu-item'
+    > &
+      Schema.Attribute.Private;
+    menu: Schema.Attribute.Relation<'manyToOne', 'api::menu.menu'>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    parent: Schema.Attribute.Relation<'manyToOne', 'api::menu-item.menu-item'>;
+    publishedAt: Schema.Attribute.DateTime;
+    target: Schema.Attribute.Enumeration<
+      ['_self', '_blank', '_parent', '_top']
+    > &
+      Schema.Attribute.DefaultTo<'_self'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface ApiMenuMenu extends Struct.CollectionTypeSchema {
+  collectionName: 'menus';
+  info: {
+    description: 'Navigation menus for the website';
+    displayName: 'Menu';
+    pluralName: 'menus';
+    singularName: 'menu';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::menu.menu'> &
+      Schema.Attribute.Private;
+    menuItems: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-item.menu-item'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -525,8 +660,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.RichText;
+    dimensions: Schema.Attribute.JSON;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     gallery: Schema.Attribute.Media<'images', true>;
+    hasVariations: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -536,13 +673,173 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     price: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    productTabs: Schema.Attribute.Component<'product.product-tab', true>;
     publishedAt: Schema.Attribute.DateTime;
+    shortDescription: Schema.Attribute.Text;
     sku: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'name'>;
     stock: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    stripePriceId: Schema.Attribute.String;
+    stripeProductId: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    variations: Schema.Attribute.JSON;
+    weight: Schema.Attribute.Decimal;
+  };
+}
+
+export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
+  collectionName: 'recipes';
+  info: {
+    description: 'Recipes from The Piped Peony Academy';
+    displayName: 'Recipe';
+    pluralName: 'recipes';
+    singularName: 'recipe';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categories: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::category.category'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    difficulty: Schema.Attribute.String;
+    equipment: Schema.Attribute.JSON;
+    featuredImage: Schema.Attribute.Media<'images'>;
+    headerTitle: Schema.Attribute.String;
+    important: Schema.Attribute.JSON;
+    ingredients: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::recipe.recipe'
+    > &
+      Schema.Attribute.Private;
+    longDescription: Schema.Attribute.RichText;
+    methodLabel: Schema.Attribute.String;
+    notes: Schema.Attribute.JSON;
+    notice: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    recipeVideoId: Schema.Attribute.String;
+    shortDescription: Schema.Attribute.Text;
+    slug: Schema.Attribute.UID<'title'>;
+    time: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSubscriptionSubscription
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'subscriptions';
+  info: {
+    description: 'Subscription products for gated content access';
+    displayName: 'Subscription';
+    pluralName: 'subscriptions';
+    singularName: 'subscription';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    accessLevel: Schema.Attribute.Enumeration<
+      ['Basic', 'Premium', 'Enterprise']
+    > &
+      Schema.Attribute.DefaultTo<'Basic'>;
+    active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    features: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
+    freeTrialDays: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subscription.subscription'
+    > &
+      Schema.Attribute.Private;
+    maxUsers: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    productGallery: Schema.Attribute.Media<'images', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'>;
+    stripePriceId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    stripeProductId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    subscriptionLength: Schema.Attribute.Enumeration<
+      ['Monthly', 'Quarterly', 'Yearly']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Monthly'>;
+    subscriptionPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUsersubscriptionUsersubscription
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'user_subscriptions';
+  info: {
+    description: 'Individual user subscription records';
+    displayName: 'User Subscriptions';
+    pluralName: 'usersubscriptions';
+    singularName: 'usersubscription';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cancelAtPeriodEnd: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    canceledAt: Schema.Attribute.DateTime;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currentPeriodEnd: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    currentPeriodStart: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    endedAt: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::usersubscription.usersubscription'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['active', 'canceled', 'past_due', 'unpaid', 'trialing', 'incomplete']
+    > &
+      Schema.Attribute.Required;
+    stripeCustomerId: Schema.Attribute.String & Schema.Attribute.Required;
+    stripeSubscriptionId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    subscription: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::subscription.subscription'
+    >;
+    trialEnd: Schema.Attribute.DateTime;
+    trialStart: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1001,10 +1298,10 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    clerkId: Schema.Attribute.String & Schema.Attribute.Unique;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1015,6 +1312,8 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    firstName: Schema.Attribute.String;
+    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1058,7 +1357,13 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
       'api::category.category': ApiCategoryCategory;
+      'api::course.course': ApiCourseCourse;
+      'api::menu-item.menu-item': ApiMenuItemMenuItem;
+      'api::menu.menu': ApiMenuMenu;
       'api::product.product': ApiProductProduct;
+      'api::recipe.recipe': ApiRecipeRecipe;
+      'api::subscription.subscription': ApiSubscriptionSubscription;
+      'api::usersubscription.usersubscription': ApiUsersubscriptionUsersubscription;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

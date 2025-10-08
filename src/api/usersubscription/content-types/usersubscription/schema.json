@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_subscriptions",
+  "info": {
+    "singularName": "usersubscription",
+    "pluralName": "usersubscriptions",
+    "displayName": "User Subscriptions",
+    "description": "Individual user subscription records"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "subscription": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subscription.subscription"
+    },
+    "stripeSubscriptionId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "stripeCustomerId": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "active",
+        "canceled",
+        "past_due",
+        "unpaid",
+        "trialing",
+        "incomplete"
+      ]
+    },
+    "currentPeriodStart": {
+      "type": "datetime",
+      "required": true
+    },
+    "currentPeriodEnd": {
+      "type": "datetime",
+      "required": true
+    },
+    "cancelAtPeriodEnd": {
+      "type": "boolean",
+      "default": false
+    },
+    "trialStart": {
+      "type": "datetime"
+    },
+    "trialEnd": {
+      "type": "datetime"
+    },
+    "canceledAt": {
+      "type": "datetime"
+    },
+    "endedAt": {
+      "type": "datetime"
+    }
+  }
+}

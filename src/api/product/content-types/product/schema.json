@@ -31,13 +31,17 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "gallery": {
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "category": {
       "type": "relation",
@@ -55,7 +59,36 @@
     },
     "sku": {
       "type": "string"
+    },
+    "stripeProductId": {
+      "type": "string"
+    },
+    "stripePriceId": {
+      "type": "string"
+    },
+    "hasVariations": {
+      "type": "boolean",
+      "default": false
+    },
+    "variations": {
+      "type": "json",
+      "description": "Product variations with Stripe Price IDs"
+    },
+    "shortDescription": {
+      "type": "text"
+    },
+    "weight": {
+      "type": "decimal"
+    },
+    "dimensions": {
+      "type": "json",
+      "description": "Product dimensions (length, width, height)"
+    },
+    "productTabs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.product-tab",
+      "description": "Product information tabs (What's Included, Disclaimer, etc.)"
     }
   }
 }
-

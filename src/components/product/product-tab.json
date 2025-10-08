@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_product_product_tabs",
+  "info": {
+    "displayName": "Product Tab",
+    "description": "A single product tab with title, content, and optional accordions"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "content": {
+      "type": "richtext",
+      "required": false,
+      "description": "Optional content above accordions"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false,
+      "description": "Set as default active tab"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "description": "Display order of the tab"
+    },
+    "accordionItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.accordion-item",
+      "description": "Accordion items within this tab"
+    },
+    "displayType": {
+      "type": "enumeration",
+      "enum": ["content_only", "accordion_only", "content_and_accordion"],
+      "default": "accordion_only",
+      "description": "How to display the tab content"
+    }
+  }
+}

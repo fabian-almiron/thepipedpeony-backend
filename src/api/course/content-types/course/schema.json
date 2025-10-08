@@ -1,0 +1,94 @@
+{
+  "kind": "collectionType",
+  "collectionName": "courses",
+  "info": {
+    "singularName": "course",
+    "pluralName": "courses",
+    "displayName": "Course",
+    "description": "Video courses with chapters, equipment lists, and detailed content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "unique": true
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "excerpt": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "author": {
+      "type": "string",
+      "default": "The Piped Peony Team"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "json"
+    },
+    "courseLevel": {
+      "type": "enumeration",
+      "default": "beginner",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ]
+    },
+    "episode": {
+      "type": "string"
+    },
+    "videoId": {
+      "type": "string"
+    },
+    "series": {
+      "type": "string"
+    },
+    "about": {
+      "type": "richtext"
+    },
+    "videoChapters": {
+      "type": "json"
+    },
+    "equipmentNeeded": {
+      "type": "json"
+    },
+    "permalink": {
+      "type": "string"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "course"
+    }
+  }
+}

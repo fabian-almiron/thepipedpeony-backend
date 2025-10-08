@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipes",
+  "info": {
+    "singularName": "recipe",
+    "pluralName": "recipes",
+    "displayName": "Recipe",
+    "description": "Recipes from The Piped Peony Academy"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "headerTitle": {
+      "type": "string"
+    },
+    "methodLabel": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "text"
+    },
+    "time": {
+      "type": "string"
+    },
+    "difficulty": {
+      "type": "string"
+    },
+    "longDescription": {
+      "type": "richtext"
+    },
+    "equipment": {
+      "type": "json"
+    },
+    "ingredients": {
+      "type": "json"
+    },
+    "notice": {
+      "type": "text"
+    },
+    "important": {
+      "type": "json"
+    },
+    "notes": {
+      "type": "json"
+    },
+    "recipeVideoId": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "recipes"
+    }
+  }
+}
+

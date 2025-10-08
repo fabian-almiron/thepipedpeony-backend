@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_product_accordion_items",
+  "info": {
+    "displayName": "Accordion Item",
+    "description": "A single accordion item with title and content"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "isExpanded": {
+      "type": "boolean",
+      "default": false,
+      "description": "Set as default expanded state"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "description": "Display order within the accordion"
+    }
+  }
+}

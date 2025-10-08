@@ -1,0 +1,78 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subscriptions",
+  "info": {
+    "singularName": "subscription",
+    "pluralName": "subscriptions",
+    "displayName": "Subscription",
+    "description": "Subscription products for gated content access"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "subscriptionPrice": {
+      "type": "decimal",
+      "required": true
+    },
+    "subscriptionLength": {
+      "type": "enumeration",
+      "enum": ["Monthly", "Quarterly", "Yearly"],
+      "default": "Monthly",
+      "required": true
+    },
+    "freeTrialDays": {
+      "type": "integer",
+      "default": 0
+    },
+    "productGallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "stripeProductId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "stripePriceId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "features": {
+      "type": "json",
+      "default": []
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "maxUsers": {
+      "type": "integer",
+      "default": 1
+    },
+    "accessLevel": {
+      "type": "enumeration",
+      "enum": ["Basic", "Premium", "Enterprise"],
+      "default": "Basic"
+    }
+  }
+}
