@@ -1332,6 +1332,26 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    stripeCustomerId: Schema.Attribute.String;
+    stripeSubscriptionId: Schema.Attribute.String;
+    subscriptionEndDate: Schema.Attribute.DateTime;
+    subscriptionPlan: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::subscription.subscription'
+    >;
+    subscriptionStatus: Schema.Attribute.Enumeration<
+      [
+        'none',
+        'active',
+        'trialing',
+        'canceled',
+        'past_due',
+        'unpaid',
+        'incomplete',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'none'>;
+    trialEndDate: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

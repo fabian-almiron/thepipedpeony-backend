@@ -74,6 +74,36 @@
     },
     "lastName": {
       "type": "string"
+    },
+    "stripeCustomerId": {
+      "type": "string"
+    },
+    "stripeSubscriptionId": {
+      "type": "string"
+    },
+    "subscriptionStatus": {
+      "type": "enumeration",
+      "enum": [
+        "none",
+        "active",
+        "trialing",
+        "canceled",
+        "past_due",
+        "unpaid",
+        "incomplete"
+      ],
+      "default": "none"
+    },
+    "subscriptionPlan": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subscription.subscription"
+    },
+    "subscriptionEndDate": {
+      "type": "datetime"
+    },
+    "trialEndDate": {
+      "type": "datetime"
     }
   }
 }
