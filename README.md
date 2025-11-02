@@ -34,11 +34,20 @@ yarn build
 
 ## ⚙️ Deployment
 
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
+### Railway Deployment (Docker)
 
-```
-yarn strapi deploy
-```
+This project is configured for deployment on Railway using Docker. See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
+
+**Quick start:**
+1. Push to GitHub
+2. Create new project on [Railway](https://railway.app/)
+3. Connect your repository
+4. Add PostgreSQL database
+5. Configure environment variables (see DEPLOYMENT.md)
+
+### Other Deployment Options
+
+Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
 
 ## 📚 Learn more
 

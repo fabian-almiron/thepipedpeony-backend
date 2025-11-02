@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Development
+.tmp/
+.cache/
+dist/
+build/
+.strapi-updater.json
+
+# Misc
+.DS_Store
+*.pem
+.env*.local
+.env.test
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+
+# Strapi
+.strapi-cloud.json
+data.db
+data.db-shm
+data.db-wal
+*.db
+
+# Public uploads (optional - uncomment if you use external storage like S3)
+# public/uploads/*
+
