@@ -13,7 +13,8 @@
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry",
-    "generate-secrets": "node generate-secrets.js"
+    "generate-secrets": "node generate-secrets.js",
+    "railway:setup": "./railway-setup.sh"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.25.0",

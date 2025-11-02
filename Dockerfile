@@ -40,6 +40,10 @@ RUN adduser --system --uid 1001 strapi
 # Copy built application
 COPY --from=builder --chown=strapi:nodejs /app ./
 
+# Create necessary directories and set permissions
+RUN mkdir -p .tmp .cache public/uploads && \
+    chown -R strapi:nodejs .tmp .cache public/uploads
+
 # Switch to non-root user
 USER strapi
 
