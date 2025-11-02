@@ -4,7 +4,7 @@
   "info": {
     "singularName": "product",
     "pluralName": "products",
-    "displayName": "Product",
+    "displayName": "Products",
     "description": "Product for ecommerce"
   },
   "options": {
@@ -71,8 +71,7 @@
       "default": false
     },
     "variations": {
-      "type": "json",
-      "description": "Product variations with Stripe Price IDs"
+      "type": "json"
     },
     "shortDescription": {
       "type": "text"
@@ -81,14 +80,12 @@
       "type": "decimal"
     },
     "dimensions": {
-      "type": "json",
-      "description": "Product dimensions (length, width, height)"
+      "type": "json"
     },
     "productTabs": {
       "type": "component",
-      "repeatable": true,
       "component": "product.product-tab",
-      "description": "Product information tabs (What's Included, Disclaimer, etc.)"
+      "repeatable": true
     }
   }
 }

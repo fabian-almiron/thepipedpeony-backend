@@ -4,7 +4,7 @@
   "info": {
     "singularName": "blog",
     "pluralName": "blogs",
-    "displayName": "Blog",
+    "displayName": "Blog Posts",
     "description": "Blog posts and articles"
   },
   "options": {
@@ -32,7 +32,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "author": {
       "type": "string",
@@ -47,9 +49,8 @@
     },
     "readTime": {
       "type": "integer",
-      "min": 1,
-      "default": 5
+      "default": 5,
+      "min": 1
     }
   }
 }
-

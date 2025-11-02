@@ -434,7 +434,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   collectionName: 'blogs';
   info: {
     description: 'Blog posts and articles';
-    displayName: 'Blog';
+    displayName: 'Blog Posts';
     pluralName: 'blogs';
     singularName: 'blog';
   };
@@ -479,7 +479,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
     description: 'Product category';
-    displayName: 'Category';
+    displayName: 'Categories';
     pluralName: 'categories';
     singularName: 'category';
   };
@@ -515,7 +515,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
   collectionName: 'courses';
   info: {
     description: 'Video courses with chapters, equipment lists, and detailed content';
-    displayName: 'Course';
+    displayName: 'Courses';
     pluralName: 'courses';
     singularName: 'course';
   };
@@ -568,7 +568,7 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
   collectionName: 'menu_items';
   info: {
     description: 'Individual menu items for navigation';
-    displayName: 'Menu Item';
+    displayName: 'Menu Items';
     pluralName: 'menu-items';
     singularName: 'menu-item';
   };
@@ -613,7 +613,7 @@ export interface ApiMenuMenu extends Struct.CollectionTypeSchema {
   collectionName: 'menus';
   info: {
     description: 'Navigation menus for the website';
-    displayName: 'Menu';
+    displayName: 'Menus';
     pluralName: 'menus';
     singularName: 'menu';
   };
@@ -647,7 +647,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
     description: 'Product for ecommerce';
-    displayName: 'Product';
+    displayName: 'Products';
     pluralName: 'products';
     singularName: 'product';
   };
@@ -693,7 +693,7 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
   collectionName: 'recipes';
   info: {
     description: 'Recipes from The Piped Peony Academy';
-    displayName: 'Recipe';
+    displayName: 'Recipes';
     pluralName: 'recipes';
     singularName: 'recipe';
   };
@@ -741,7 +741,7 @@ export interface ApiSubscriptionSubscription
   collectionName: 'subscriptions';
   info: {
     description: 'Subscription products for gated content access';
-    displayName: 'Subscription';
+    displayName: 'Subscriptions';
     pluralName: 'subscriptions';
     singularName: 'subscription';
   };
@@ -759,7 +759,7 @@ export interface ApiSubscriptionSubscription
       Schema.Attribute.Private;
     description: Schema.Attribute.RichText;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    features: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
+    features: Schema.Attribute.JSON;
     freeTrialDays: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -787,59 +787,6 @@ export interface ApiSubscriptionSubscription
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiUsersubscriptionUsersubscription
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'user_subscriptions';
-  info: {
-    description: 'Individual user subscription records';
-    displayName: 'User Subscriptions';
-    pluralName: 'usersubscriptions';
-    singularName: 'usersubscription';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    cancelAtPeriodEnd: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<false>;
-    canceledAt: Schema.Attribute.DateTime;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    currentPeriodEnd: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    currentPeriodStart: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    endedAt: Schema.Attribute.DateTime;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::usersubscription.usersubscription'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<
-      ['active', 'canceled', 'past_due', 'unpaid', 'trialing', 'incomplete']
-    > &
-      Schema.Attribute.Required;
-    stripeCustomerId: Schema.Attribute.String & Schema.Attribute.Required;
-    stripeSubscriptionId: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    subscription: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::subscription.subscription'
-    >;
-    trialEnd: Schema.Attribute.DateTime;
-    trialStart: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
   };
 }
 
@@ -1190,180 +1137,6 @@ export interface PluginUploadFolder extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface PluginUsersPermissionsPermission
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'up_permissions';
-  info: {
-    description: '';
-    displayName: 'Permission';
-    name: 'permission';
-    pluralName: 'permissions';
-    singularName: 'permission';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    action: Schema.Attribute.String & Schema.Attribute.Required;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::users-permissions.permission'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    role: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.role'
-    >;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface PluginUsersPermissionsRole
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'up_roles';
-  info: {
-    description: '';
-    displayName: 'Role';
-    name: 'role';
-    pluralName: 'roles';
-    singularName: 'role';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::users-permissions.role'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 3;
-      }>;
-    permissions: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::users-permissions.permission'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    type: Schema.Attribute.String & Schema.Attribute.Unique;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    users: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
-export interface PluginUsersPermissionsUser
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'up_users';
-  info: {
-    description: '';
-    displayName: 'User';
-    name: 'user';
-    pluralName: 'users';
-    singularName: 'user';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    clerkId: Schema.Attribute.String & Schema.Attribute.Unique;
-    confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
-    confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.Email &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 6;
-      }>;
-    firstName: Schema.Attribute.String;
-    lastName: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::users-permissions.user'
-    > &
-      Schema.Attribute.Private;
-    password: Schema.Attribute.Password &
-      Schema.Attribute.Private &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 6;
-      }>;
-    provider: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
-    role: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.role'
-    >;
-    stripeCustomerId: Schema.Attribute.String;
-    stripeSubscriptionId: Schema.Attribute.String;
-    subscriptionEndDate: Schema.Attribute.DateTime;
-    subscriptionPlan: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::subscription.subscription'
-    >;
-    subscriptionStatus: Schema.Attribute.Enumeration<
-      [
-        'none',
-        'active',
-        'trialing',
-        'canceled',
-        'past_due',
-        'unpaid',
-        'incomplete',
-      ]
-    > &
-      Schema.Attribute.DefaultTo<'none'>;
-    trialEndDate: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    username: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 3;
-      }>;
-  };
-}
-
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
@@ -1383,7 +1156,6 @@ declare module '@strapi/strapi' {
       'api::product.product': ApiProductProduct;
       'api::recipe.recipe': ApiRecipeRecipe;
       'api::subscription.subscription': ApiSubscriptionSubscription;
-      'api::usersubscription.usersubscription': ApiUsersubscriptionUsersubscription;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
@@ -1391,9 +1163,6 @@ declare module '@strapi/strapi' {
       'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
-      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
-      'plugin::users-permissions.role': PluginUsersPermissionsRole;
-      'plugin::users-permissions.user': PluginUsersPermissionsUser;
     }
   }
 }

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "recipe",
     "pluralName": "recipes",
-    "displayName": "Recipe",
+    "displayName": "Recipes",
     "description": "Recipes from The Piped Peony Academy"
   },
   "options": {
@@ -72,4 +72,3 @@
     }
   }
 }
-

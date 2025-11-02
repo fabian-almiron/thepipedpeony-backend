@@ -4,7 +4,7 @@
   "info": {
     "singularName": "subscription",
     "pluralName": "subscriptions",
-    "displayName": "Subscription",
+    "displayName": "Subscriptions",
     "description": "Subscription products for gated content access"
   },
   "options": {
@@ -25,9 +25,13 @@
     },
     "subscriptionLength": {
       "type": "enumeration",
-      "enum": ["Monthly", "Quarterly", "Yearly"],
+      "required": true,
       "default": "Monthly",
-      "required": true
+      "enum": [
+        "Monthly",
+        "Quarterly",
+        "Yearly"
+      ]
     },
     "freeTrialDays": {
       "type": "integer",
@@ -37,7 +41,9 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "stripeProductId": {
       "type": "string",
@@ -50,8 +56,7 @@
       "unique": true
     },
     "features": {
-      "type": "json",
-      "default": []
+      "type": "json"
     },
     "active": {
       "type": "boolean",
@@ -71,8 +76,12 @@
     },
     "accessLevel": {
       "type": "enumeration",
-      "enum": ["Basic", "Premium", "Enterprise"],
-      "default": "Basic"
+      "default": "Basic",
+      "enum": [
+        "Basic",
+        "Premium",
+        "Enterprise"
+      ]
     }
   }
 }

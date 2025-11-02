@@ -4,7 +4,7 @@
   "info": {
     "singularName": "course",
     "pluralName": "courses",
-    "displayName": "Course",
+    "displayName": "Courses",
     "description": "Video courses with chapters, equipment lists, and detailed content"
   },
   "options": {
