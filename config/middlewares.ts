@@ -23,10 +23,11 @@ export default ({ env }) => [
     name: 'strapi::session',
     config: {
       cookie: {
-        secure: env.bool('FORCE_HTTPS', true),
+        // Railway handles HTTPS at the load balancer level
+        secure: false, // Railway proxy handles HTTPS
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 14, // 14 days
-        sameSite: env.bool('FORCE_HTTPS', true) ? 'strict' : 'lax',
+        sameSite: 'lax',
       },
     },
   },

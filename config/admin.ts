@@ -2,10 +2,11 @@ export default ({ env }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
     // Session configuration for cookie settings
+    // Railway handles HTTPS at the load balancer, internal traffic is HTTP
     sessions: {
       cookie: {
-        secure: env.bool('FORCE_HTTPS', true),
-        sameSite: env.bool('FORCE_HTTPS', true) ? 'strict' : 'lax',
+        secure: false, // Railway proxy handles HTTPS
+        sameSite: 'lax',
       },
     },
   },
