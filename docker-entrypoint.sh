@@ -5,23 +5,23 @@ echo "🔧 Fixing volume permissions..."
 
 # Ensure uploads directory exists and has correct permissions
 if [ -d "/app/public/uploads" ]; then
-    # Fix ownership if we have permission
-    if [ "$(id -u)" = "0" ]; then
-        chown -R strapi:nodejs /app/public/uploads
-    fi
-    
-    # Ensure directory is writable
-    chmod -R 755 /app/public/uploads
-    
-    echo "✅ Permissions fixed"
+    # Fix ownership (we should be root at this point)
+    chown -R strapi:nodejs /app/public/uploads
+    chmod -R 775 /app/public/uploads
+    echo "✅ Permissions fixed for uploads directory"
 else
     echo "⚠️  /app/public/uploads doesn't exist, creating..."
     mkdir -p /app/public/uploads
-    chmod -R 755 /app/public/uploads
+    chown -R strapi:nodejs /app/public/uploads
+    chmod -R 775 /app/public/uploads
 fi
 
-echo "🚀 Starting Strapi..."
+# Fix other directories
+chown -R strapi:nodejs /app/.tmp /app/.cache
+chmod -R 775 /app/.tmp /app/.cache
 
-# Execute the CMD from Dockerfile
-exec "$@"
+echo "🚀 Starting Strapi as strapi user..."
+
+# Switch to strapi user and execute the CMD
+exec su-exec strapi "$@"
 
