@@ -2,6 +2,7 @@ export default ({ env }) => [
   'strapi::logger',
   'strapi::errors',
   'global::health-check',
+  'global::cookie-patch', // Patch cookies for Railway proxy
   'strapi::security',
   {
     name: 'strapi::cors',
