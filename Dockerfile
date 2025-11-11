@@ -44,6 +44,10 @@ COPY --from=builder --chown=strapi:nodejs /app ./
 RUN mkdir -p .tmp .cache public/uploads && \
     chown -R strapi:nodejs .tmp .cache public/uploads
 
+# Copy and setup entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Switch to non-root user
 USER strapi
 
@@ -54,6 +58,7 @@ EXPOSE 1337
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s \
   CMD node -e "require('http').get('http://localhost:1337/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
-# Start the application
+# Use entrypoint to fix volume permissions at runtime
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["npm", "start"]
 
