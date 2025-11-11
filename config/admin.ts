@@ -1,6 +1,13 @@
 export default ({ env }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
+    // Session configuration for cookie settings
+    sessions: {
+      cookie: {
+        secure: env.bool('FORCE_HTTPS', true),
+        sameSite: env.bool('FORCE_HTTPS', true) ? 'strict' : 'lax',
+      },
+    },
   },
   apiToken: {
     salt: env('API_TOKEN_SALT'),

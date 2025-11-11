@@ -1,3 +1,7 @@
+/**
+ * health router
+ */
+
 export default {
   routes: [
     {
@@ -6,6 +10,8 @@ export default {
       handler: 'health.index',
       config: {
         auth: false,
+        policies: [],
+        middlewares: [],
       },
     },
   ],
