@@ -17,6 +17,7 @@
     "railway:setup": "./railway-setup.sh"
   },
   "dependencies": {
+    "@retikolo/drag-drop-content-types": "^1.7.1",
     "@strapi/plugin-cloud": "5.25.0",
     "@strapi/plugin-users-permissions": "5.25.0",
     "@strapi/strapi": "5.25.0",

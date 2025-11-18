@@ -1,0 +1,55 @@
+services:
+  strapi:
+    container_name: pp-strapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pp-strapi:latest
+    restart: unless-stopped
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1337
+      NODE_ENV: development
+      DATABASE_CLIENT: postgres
+      DATABASE_URL: postgres://strapi:strapi@postgres:5432/strapi
+      DATABASE_SSL: false
+      APP_KEYS: F2Rw5HTT4EqntQcQNL4Sc316sUueEQ3rsyUcZqLqSEI=,d+UUUflbMnRuOxtUzeVvAbFeYHFwNHGHS7Xa1GMvDgY=,i/abyisOYlUx5UNERP5y8lkBK3yZwNDcG1NKk1OPyko=,ofdCrBYQyFGrqQwjuJBQklJ+b+wjTHmVaiwD7NsxcfY=
+      API_TOKEN_SALT: ZKD4nJhUXjkjmBmsSumoHxW1qZWUkl42t3Uc6iwCsU4=
+      ADMIN_JWT_SECRET: JAhhdRsNu3T0GdunsrbBB8UwMFr5tb70FmHHaJBmEYc=
+      TRANSFER_TOKEN_SALT: qwGddhdfj7rUfJRS3OjDEnyxnJcCvJulI+lAu36aLoM=
+      JWT_SECRET: ooBj0bssgQFg1wptIVSU+7oLUyTN8iEcSgMlj6tO0pQ=
+      # Disable HTTPS requirements for local Docker development
+      FORCE_HTTPS: false
+      IS_PROXIED: false
+    #volumes:
+      #- ./public/uploads:/app/public/uploads
+    ports:
+      - '1337:1337'
+    networks:
+      - strapi
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: pp-postgres
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+      POSTGRES_DB: strapi
+    volumes:
+      - strapi-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - strapi
+
+volumes:
+  strapi-data:
+
+networks:
+  strapi:
+    name: strapi
+    driver: bridge
+

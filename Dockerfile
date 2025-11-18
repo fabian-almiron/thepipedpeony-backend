@@ -50,9 +50,9 @@ USER strapi
 # Expose port
 EXPOSE 1337
 
-# Health check
+# Health check - using root endpoint since Strapi doesn't have /_health by default
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s \
-  CMD node -e "require('http').get('http://localhost:1337/_health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+  CMD node -e "require('http').get('http://localhost:1337/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Start the application
 CMD ["npm", "start"]

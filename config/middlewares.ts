@@ -1,6 +1,8 @@
-export default [
+export default ({ env }) => [
   'strapi::logger',
   'strapi::errors',
+  'global::health-check',
+  'global::cookie-patch', // Patch cookies for Railway proxy
   'strapi::security',
   {
     name: 'strapi::cors',
@@ -18,7 +20,18 @@ export default [
   'strapi::poweredBy',
   'strapi::query',
   'strapi::body',
-  'strapi::session',
+  {
+    name: 'strapi::session',
+    config: {
+      cookie: {
+        // Railway handles HTTPS at the load balancer level
+        secure: false, // Railway proxy handles HTTPS
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 14, // 14 days
+        sameSite: 'lax',
+      },
+    },
+  },
   'strapi::favicon',
   'strapi::public',
 ];
