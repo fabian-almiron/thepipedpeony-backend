@@ -69,7 +69,8 @@
       "type": "enumeration",
       "enum": [
         "View All",
-        "Logged In"
+        "Logged In",
+        "Logged Out"
       ],
       "default": "View All"
     }

@@ -600,7 +600,9 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     parent: Schema.Attribute.Relation<'manyToOne', 'api::menu-item.menu-item'>;
     publishedAt: Schema.Attribute.DateTime;
-    relationType: Schema.Attribute.Enumeration<['View All', 'Logged In']> &
+    relationType: Schema.Attribute.Enumeration<
+      ['View All', 'Logged In', 'Logged Out']
+    > &
       Schema.Attribute.DefaultTo<'View All'>;
     target: Schema.Attribute.Enumeration<
       ['_self', '_blank', '_parent', '_top']
