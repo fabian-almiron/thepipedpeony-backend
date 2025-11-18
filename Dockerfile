@@ -1,6 +1,9 @@
 # Use Node.js 20 LTS
 FROM node:20-alpine AS base
 
+# Install su-exec for user switching in entrypoint
+RUN apk add --no-cache su-exec
+
 # Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
@@ -40,12 +43,14 @@ RUN adduser --system --uid 1001 strapi
 # Copy built application
 COPY --from=builder --chown=strapi:nodejs /app ./
 
-# Create necessary directories and set permissions
-RUN mkdir -p .tmp .cache public/uploads && \
-    chown -R strapi:nodejs .tmp .cache public/uploads
+# Create necessary directories
+RUN mkdir -p .tmp .cache public/uploads
 
-# Switch to non-root user
-USER strapi
+# Copy and setup entrypoint script (must be done as root)
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# DON'T switch to strapi user yet - entrypoint needs root to fix permissions
 
 # Expose port
 EXPOSE 1337
@@ -54,6 +59,7 @@ EXPOSE 1337
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s \
   CMD node -e "require('http').get('http://localhost:1337/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
-# Start the application
+# Use entrypoint to fix volume permissions at runtime
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["npm", "start"]
 
