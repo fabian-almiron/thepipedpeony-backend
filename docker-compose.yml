@@ -13,11 +13,15 @@ services:
       DATABASE_CLIENT: postgres
       DATABASE_URL: postgres://strapi:strapi@postgres:5432/strapi
       DATABASE_SSL: false
-      APP_KEYS: F2Rw5HTT4EqntQcQNL4Sc316sUueEQ3rsyUcZqLqSEI=,d+UUUflbMnRuOxtUzeVvAbFeYHFwNHGHS7Xa1GMvDgY=,i/abyisOYlUx5UNERP5y8lkBK3yZwNDcG1NKk1OPyko=,ofdCrBYQyFGrqQwjuJBQklJ+b+wjTHmVaiwD7NsxcfY=
-      API_TOKEN_SALT: ZKD4nJhUXjkjmBmsSumoHxW1qZWUkl42t3Uc6iwCsU4=
-      ADMIN_JWT_SECRET: JAhhdRsNu3T0GdunsrbBB8UwMFr5tb70FmHHaJBmEYc=
-      TRANSFER_TOKEN_SALT: qwGddhdfj7rUfJRS3OjDEnyxnJcCvJulI+lAu36aLoM=
-      JWT_SECRET: ooBj0bssgQFg1wptIVSU+7oLUyTN8iEcSgMlj6tO0pQ=
+      # ⚠️ SECURITY WARNING: These are development-only secrets
+      # For production, NEVER commit secrets to Git. Use environment variables.
+      # Generate new secrets using: npm run generate-secrets
+      APP_KEYS: ${APP_KEYS:-F2Rw5HTT4EqntQcQNL4Sc316sUueEQ3rsyUcZqLqSEI=,d+UUUflbMnRuOxtUzeVvAbFeYHFwNHGHS7Xa1GMvDgY=,i/abyisOYlUx5UNERP5y8lkBK3yZwNDcG1NKk1OPyko=,ofdCrBYQyFGrqQwjuJBQklJ+b+wjTHmVaiwD7NsxcfY=}
+      API_TOKEN_SALT: ${API_TOKEN_SALT:-ZKD4nJhUXjkjmBmsSumoHxW1qZWUkl42t3Uc6iwCsU4=}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-JAhhdRsNu3T0GdunsrbBB8UwMFr5tb70FmHHaJBmEYc=}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:-qwGddhdfj7rUfJRS3OjDEnyxnJcCvJulI+lAu36aLoM=}
+      JWT_SECRET: ${JWT_SECRET:-ooBj0bssgQFg1wptIVSU+7oLUyTN8iEcSgMlj6tO0pQ=}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-generate-this-in-production}
       # Disable HTTPS requirements for local Docker development
       FORCE_HTTPS: false
       IS_PROXIED: false

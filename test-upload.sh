@@ -1,6 +1,19 @@
 #!/bin/bash
 
-API_TOKEN="2c336b297fef850e0e6465c23b97a55b1939349c854f00f81254d2be6a3455369fa0e4cf990c4a743b13346f837a8124a9da0a6256c01aa993501e4824e3670f75fefd1e78e1189eb3708978b88be91b9c5d039455d68a0c97ac8c7ac649bf307cbc9b8d41dcc40bae678bada064e8d5543dbd02048f52592c45331bca5fc49f"
+# ⚠️ SECURITY: Never hardcode API tokens!
+# Set your API token as an environment variable instead:
+# export STRAPI_API_TOKEN="your-token-here"
+
+if [ -z "$STRAPI_API_TOKEN" ]; then
+    echo "❌ Error: STRAPI_API_TOKEN environment variable is not set"
+    echo ""
+    echo "Usage:"
+    echo "  export STRAPI_API_TOKEN='your-api-token'"
+    echo "  ./test-upload.sh"
+    exit 1
+fi
+
+API_TOKEN="$STRAPI_API_TOKEN"
 
 echo "🧪 Testing upload with one file..."
 echo ""

@@ -5,7 +5,10 @@ export default {
       path: '/api/bulk-upload',
       handler: 'bulk-upload.upload',
       config: {
-        auth: false,
+        // ⚠️ SECURITY: This endpoint requires authentication to prevent unauthorized file uploads
+        auth: {
+          scope: ['api::bulk-upload.upload']
+        },
       },
     },
   ],

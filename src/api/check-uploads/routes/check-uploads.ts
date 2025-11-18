@@ -5,7 +5,10 @@ export default {
       path: '/check-uploads',
       handler: 'check-uploads.check',
       config: {
-        auth: false,
+        // SECURITY: Require authentication to check uploads
+        auth: {
+          scope: ['api::check-uploads.check']
+        },
       },
     },
   ],

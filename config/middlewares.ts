@@ -11,7 +11,9 @@ export default ({ env }) => [
         'http://localhost:3000', 
         'http://localhost:3001',
         'https://the-pp-new.vercel.app',
-        'https://*.vercel.app'
+        // TODO: Replace wildcard with specific Vercel domains for better security
+        // 'https://*.vercel.app' // Wildcard allows ANY Vercel app - consider restricting
+        ...(env('ALLOWED_ORIGINS', '').split(',').filter(Boolean))
       ],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
       credentials: true,
