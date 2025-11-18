@@ -69,6 +69,10 @@
       "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "recipes"
+    },
+    "rank": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

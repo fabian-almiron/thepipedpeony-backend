@@ -86,6 +86,10 @@
       "type": "component",
       "component": "product.product-tab",
       "repeatable": true
+    },
+    "rank": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

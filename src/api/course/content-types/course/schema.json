@@ -89,6 +89,10 @@
       "relation": "manyToMany",
       "target": "api::category.category",
       "mappedBy": "course"
+    },
+    "rank": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

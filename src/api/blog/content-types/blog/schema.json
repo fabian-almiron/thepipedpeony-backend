@@ -51,6 +51,10 @@
       "type": "integer",
       "default": 5,
       "min": 1
+    },
+    "rank": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
