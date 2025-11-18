@@ -458,6 +458,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     readTime: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -503,6 +504,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     recipes: Schema.Attribute.Relation<'manyToMany', 'api::recipe.recipe'>;
     slug: Schema.Attribute.UID<'name'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -552,6 +554,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     permalink: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     series: Schema.Attribute.String;
     slug: Schema.Attribute.String & Schema.Attribute.Unique;
     tags: Schema.Attribute.JSON;
@@ -597,6 +600,8 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     parent: Schema.Attribute.Relation<'manyToOne', 'api::menu-item.menu-item'>;
     publishedAt: Schema.Attribute.DateTime;
+    relationType: Schema.Attribute.Enumeration<['View All', 'Logged In']> &
+      Schema.Attribute.DefaultTo<'View All'>;
     target: Schema.Attribute.Enumeration<
       ['_self', '_blank', '_parent', '_top']
     > &
@@ -675,6 +680,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     productTabs: Schema.Attribute.Component<'product.product-tab', true>;
     publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     shortDescription: Schema.Attribute.Text;
     sku: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'name'>;
@@ -725,6 +731,7 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
     notes: Schema.Attribute.JSON;
     notice: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     recipeVideoId: Schema.Attribute.String;
     shortDescription: Schema.Attribute.Text;
     slug: Schema.Attribute.UID<'title'>;

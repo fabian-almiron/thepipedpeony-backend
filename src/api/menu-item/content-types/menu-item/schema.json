@@ -64,6 +64,14 @@
     },
     "cssClass": {
       "type": "string"
+    },
+    "relationType": {
+      "type": "enumeration",
+      "enum": [
+        "View All",
+        "Logged In"
+      ],
+      "default": "View All"
     }
   }
 }
