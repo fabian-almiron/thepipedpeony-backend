@@ -84,6 +84,9 @@
     "recipeLink": {
       "type": "string"
     },
+    "recipeLinkTitle": {
+      "type": "string"
+    },
     "permalink": {
       "type": "string"
     },
