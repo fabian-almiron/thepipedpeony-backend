@@ -81,11 +81,10 @@
     "equipmentNeeded": {
       "type": "json"
     },
-    "recipeLink": {
-      "type": "string"
-    },
-    "recipeLinkTitle": {
-      "type": "string"
+    "recipeLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "course.recipe-link"
     },
     "permalink": {
       "type": "string"

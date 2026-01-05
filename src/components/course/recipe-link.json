@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_course_recipe_links",
+  "info": {
+    "displayName": "Recipe Link",
+    "description": "A recipe link with title and URL"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
+
